@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+sqlmodel
+psycopg2-binary
+python-multipart
+passlib[bcrypt]
+passlib[bcrypt]
+bcrypt==3.2.2
+
+
+python-jose[cryptography]
+qrcode
+pillow
+aiofiles
