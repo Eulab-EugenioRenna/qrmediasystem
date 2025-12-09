@@ -2,8 +2,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Login } from './pages/Login';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { PublicView } from './pages/PublicView';
+import type { ReactNode } from 'react';
 
-const PrivateRoute = ({ children }: { children: JSX.Element }) => {
+const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const token = localStorage.getItem('token');
   return token ? children : <Navigate to="/login" />;
 };

@@ -26,8 +26,8 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl">
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 pb-safe">
+      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-xl">
         <div className="flex flex-col items-center mb-8">
           <div className="w-12 h-12 bg-indigo-500/10 rounded-full flex items-center justify-center mb-4">
             <Lock className="w-6 h-6 text-indigo-500" />

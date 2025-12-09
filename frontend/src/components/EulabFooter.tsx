@@ -12,7 +12,7 @@ export const EulabFooter = ({ position = 'bottom-right' }: EulabFooterProps) => 
       href="https://eulab.cloud" 
       target="_blank" 
       rel="noopener noreferrer"
-      className={`fixed ${positionClasses} flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-white/20 transition-colors z-50`}
+      className={`hidden md:flex fixed ${positionClasses} items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-white/20 transition-colors z-50`}
     >
       <img src="/eulab-logo.png" alt="Eulab" className="h-6 w-auto invert" />
     </a>
