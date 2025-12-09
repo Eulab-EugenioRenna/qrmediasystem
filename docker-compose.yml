@@ -4,6 +4,8 @@ services:
   backend:
     build: ./backend
     container_name: qr_media_backend
+    security_opt:
+      - apparmor:unconfined
     volumes:
       - ./backend:/app
       - ./media:/app/media
@@ -18,6 +20,8 @@ services:
   frontend:
     build: ./frontend
     container_name: qr_media_frontend
+    security_opt:
+      - apparmor:unconfined
     volumes:
       - ./frontend:/app
       - /app/node_modules
