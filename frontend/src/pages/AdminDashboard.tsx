@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import axios from 'axios';
 import { EulabFooter } from '../components/EulabFooter';
+import { FilterableSelect } from '../components/FilterableSelect';
 
 export const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -487,28 +488,20 @@ export const AdminDashboard = () => {
                    <div className="bg-slate-900 p-4 md:p-6 rounded-2xl border border-slate-800">
                       <h3 className="text-lg font-bold text-white mb-4">Create New Assignment</h3>
                       <div className="space-y-4">
-                         <div>
-                           <label className="block text-sm text-slate-400 mb-1">Select Recipient</label>
-                           <select 
-                             className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 md:py-2 text-white text-base"
-                             value={newAssignment.recipient_id}
-                             onChange={e => setNewAssignment({...newAssignment, recipient_id: e.target.value})}
-                           >
-                             <option value="">Select...</option>
-                             {recipients.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
-                           </select>
-                         </div>
-                         <div>
-                           <label className="block text-sm text-slate-400 mb-1">Select Album</label>
-                           <select 
-                             className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 md:py-2 text-white text-base"
-                             value={newAssignment.album_id}
-                             onChange={e => setNewAssignment({...newAssignment, album_id: e.target.value})}
-                           >
-                              <option value="">Select...</option>
-                              {albums.map(a => <option key={a.id} value={a.id}>{a.title}</option>)}
-                           </select>
-                         </div>
+                         <FilterableSelect
+                           label="Select Recipient"
+                           options={recipients.map(r => ({ value: r.id, label: r.name }))}
+                           value={newAssignment.recipient_id}
+                           onChange={(value) => setNewAssignment({...newAssignment, recipient_id: value})}
+                           placeholder="Search recipients..."
+                         />
+                         <FilterableSelect
+                           label="Select Album"
+                           options={albums.map(a => ({ value: a.id, label: a.title }))}
+                           value={newAssignment.album_id}
+                           onChange={(value) => setNewAssignment({...newAssignment, album_id: value})}
+                           placeholder="Search albums..."
+                         />
                          <button 
                            onClick={createAssignment} 
                            className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-medium py-4 md:py-3 rounded-xl shadow-lg shadow-indigo-500/20 hover:scale-[1.02] transition-transform text-base"
