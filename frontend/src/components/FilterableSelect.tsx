@@ -20,7 +20,7 @@ export const FilterableSelect = ({
   options,
   value,
   onChange,
-  placeholder = 'Select...',
+  placeholder = 'Seleziona...',
   label,
   className,
 }: FilterableSelectProps) => {
@@ -115,7 +115,7 @@ export const FilterableSelect = ({
                 type="text"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                placeholder="Search..."
+                placeholder="Cerca..."
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50"
               />
             </div>
@@ -141,7 +141,7 @@ export const FilterableSelect = ({
               ))
             ) : (
               <div className="px-4 py-6 text-center text-slate-500 text-sm">
-                No results found
+                Nessun risultato trovato
               </div>
             )}
           </div>

@@ -85,7 +85,7 @@ export const PublicView = () => {
       } catch (err: any) {
           if (err.response && (err.response.status === 404 || err.response.status === 403)) {
                setIsBlocked(true);
-               setError("Session expired or taken over.");
+               setError("Sessione scaduta o attiva in altra finestra.");
           }
       }
   };
@@ -128,9 +128,9 @@ export const PublicView = () => {
     } catch (err: any) {
       if (err.response?.status === 403) {
           setIsBlocked(true);
-          setError('This assignment is currently active in another session. Only one concurrent session is allowed.');
+          setError('Questa assegnazione è attiva in un\'altra sessione. È consentita una sola sessione attiva.');
       } else {
-          setError('Content unavailable');
+          setError('Contenuto non disponibile');
       }
     } finally {
       setLoading(false);
@@ -243,13 +243,13 @@ export const PublicView = () => {
               <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mb-4">
                   <Lock className="w-8 h-8 text-red-500" />
               </div>
-              <h1 className="text-xl md:text-2xl font-bold mb-2">Access Denied</h1>
+              <h1 className="text-xl md:text-2xl font-bold mb-2">Accesso Negato</h1>
               <p className="text-neutral-400 max-w-md text-sm md:text-base">{error}</p>
               <button 
                 onClick={() => window.location.reload()}
                 className="mt-6 px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-neutral-200 transition"
               >
-                  Try Again
+                  Riprova
               </button>
           </div>
       );
@@ -320,14 +320,14 @@ export const PublicView = () => {
                   )}
                </div>
                <div className="text-center md:text-left">
-                  <h4 className="text-xs font-bold uppercase tracking-wider mb-1 md:mb-2 text-[#b3b3b3]">Private Album</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-wider mb-1 md:mb-2 text-[#b3b3b3]">Album Privato</h4>
                   <h1 className="text-2xl md:text-5xl lg:text-7xl font-black tracking-tight mb-2 md:mb-4">{data.album}</h1>
                   <div className="flex items-center justify-center md:justify-start gap-2 text-sm font-medium">
                      <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-black font-bold text-xs">
                         {(data.recipient[0] || 'U').toUpperCase()}
                      </div>
                      <span>{data.recipient}</span>
-                     <span className="text-white/60">• {data.media.length} items</span>
+                     <span className="text-white/60">• {data.media.length} elementi</span>
                   </div>
                </div>
             </div>
@@ -337,7 +337,7 @@ export const PublicView = () => {
                {/* Table Header */}
                <div className="hidden md:grid grid-cols-[16px_1fr_40px] gap-4 px-4 py-3 border-b border-white/10 text-[#b3b3b3] text-sm uppercase tracking-wider sticky top-0 bg-[#121212]/95 z-10">
                   <span>#</span>
-                  <span>Title</span>
+                  <span>Titolo</span>
                   <span></span> 
                </div>
 

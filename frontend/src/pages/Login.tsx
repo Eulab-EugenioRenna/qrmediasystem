@@ -21,7 +21,7 @@ export const Login = () => {
       localStorage.setItem('token', response.data.access_token);
       navigate('/admin');
     } catch (err) {
-      setError('Invalid credentials');
+      setError('Credenziali non valide');
     }
   };
 
@@ -32,19 +32,19 @@ export const Login = () => {
           <div className="w-12 h-12 bg-indigo-500/10 rounded-full flex items-center justify-center mb-4">
             <Lock className="w-6 h-6 text-indigo-500" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Admin Access</h1>
-          <p className="text-slate-400 mt-2">Sign in to manage media and assignments</p>
+          <h1 className="text-2xl font-bold text-white">Accesso Admin</h1>
+          <p className="text-slate-400 mt-2">Accedi per gestire media e assegnazioni</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-400 mb-1">Username</label>
+            <label className="block text-sm font-medium text-slate-400 mb-1">Nome utente</label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full bg-slate-800 border-slate-700 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-              placeholder="Enter username"
+              placeholder="Inserisci nome utente"
             />
           </div>
           <div>
@@ -54,7 +54,7 @@ export const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-slate-800 border-slate-700 text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-              placeholder="Enter password"
+              placeholder="Inserisci password"
             />
           </div>
 
@@ -64,7 +64,7 @@ export const Login = () => {
             type="submit"
             className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2 rounded-lg transition-colors shadow-lg shadow-indigo-500/20"
           >
-            Sign In
+            Accedi
           </button>
         </form>
       </div>

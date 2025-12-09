@@ -117,7 +117,7 @@ export const AdminDashboard = () => {
   };
 
   const handleRemoveCover = async (targetType: 'album' | 'media', targetId: number) => {
-     if(!window.confirm("Remove cover image?")) return;
+     if(!window.confirm("Rimuovere l'immagine di copertina?")) return;
      try {
        if(targetType === 'album') {
            await api.post(`/admin/albums/${targetId}/cover`, { filename: "" });
@@ -157,31 +157,31 @@ export const AdminDashboard = () => {
   };
 
   const deleteRecipient = async (id: number) => {
-    if(!window.confirm("Delete this recipient?")) return;
+    if(!window.confirm("Eliminare questo destinatario?")) return;
     await api.delete(`/admin/recipients/${id}`);
     fetchData();
   };
 
   const deleteMedia = async (id: number) => {
-    if(!window.confirm("Delete this media? This cannot be undone.")) return;
+    if(!window.confirm("Eliminare questo media? L'operazione non può essere annullata.")) return;
     await api.delete(`/admin/media/${id}`);
     fetchData();
   };
 
   const deleteAlbum = async (id: number) => {
-    if(!window.confirm("Delete this album?")) return;
+    if(!window.confirm("Eliminare questo album?")) return;
     await api.delete(`/admin/albums/${id}`);
     fetchData();
   };
 
   const removeMediaFromAlbum = async (albumId: number, mediaId: number) => {
-    if(!window.confirm("Remove media from this album?")) return;
+    if(!window.confirm("Rimuovere il media da questo album?")) return;
     await api.delete(`/admin/albums/${albumId}/media/${mediaId}`);
     fetchData();
   };
 
   const deleteAssignment = async (id: number) => {
-    if(!window.confirm("Delete this assignment?")) return;
+    if(!window.confirm("Eliminare questa assegnazione?")) return;
     await api.delete(`/admin/assignments/${id}`);
     fetchData();
     if(selectedAssignmentId === id) {
@@ -192,9 +192,9 @@ export const AdminDashboard = () => {
   };
 
   const tabs = [
-    { id: 'assignments', icon: QrCode, label: 'QR Codes' },
-    { id: 'recipients', icon: Users, label: 'Recipients' },
-    { id: 'albums', icon: Disc, label: 'Albums' },
+    { id: 'assignments', icon: QrCode, label: 'Codici QR' },
+    { id: 'recipients', icon: Users, label: 'Destinatari' },
+    { id: 'albums', icon: Disc, label: 'Album' },
     { id: 'media', icon: Film, label: 'Media' },
   ] as const;
 
@@ -277,24 +277,24 @@ export const AdminDashboard = () => {
         <div className="max-w-6xl mx-auto p-4 md:p-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-6 md:mb-8">
-            <h2 className="text-xl md:text-2xl font-bold text-white capitalize">{activeTab} Management</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-white capitalize">Gestione {activeTab === 'assignments' ? 'Assegnazioni' : (activeTab === 'recipients' ? 'Destinatari' : activeTab)}</h2>
           </div>
 
           {/* Tab Content */}
           {activeTab === 'recipients' && (
             <div className="space-y-4 md:space-y-6">
                <div className="bg-slate-900 p-4 md:p-6 rounded-2xl border border-slate-800">
-                  <h3 className="text-lg font-semibold mb-4 text-white">Add Recipient</h3>
+                  <h3 className="text-lg font-semibold mb-4 text-white">Aggiungi Destinatario</h3>
                   <div className="flex flex-col md:flex-row gap-3 md:gap-4">
                     <input 
                       className="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 md:py-2 text-base" 
-                      placeholder="Name"
+                      placeholder="Nome"
                       value={newRecipient.name}
                       onChange={e => setNewRecipient({...newRecipient, name: e.target.value})}
                     />
                     <input 
                       className="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 md:py-2 text-base" 
-                      placeholder="Email (optional)"
+                      placeholder="Email (opzionale)"
                       value={newRecipient.email}
                       onChange={e => setNewRecipient({...newRecipient, email: e.target.value})}
                     />
@@ -302,7 +302,7 @@ export const AdminDashboard = () => {
                       onClick={createRecipient} 
                       className="bg-indigo-600 text-white px-6 py-3 md:py-2 rounded-lg hover:bg-indigo-500 font-medium"
                     >
-                      Add
+                      Aggiungi
                     </button>
                   </div>
                </div>
@@ -329,10 +329,10 @@ export const AdminDashboard = () => {
             <div className="space-y-4 md:space-y-6">
               <div className="bg-slate-900 p-6 md:p-8 rounded-2xl border border-dashed border-slate-700 hover:border-indigo-500 transition-colors flex flex-col items-center justify-center">
                  <Upload className="w-10 h-10 md:w-12 md:h-12 text-slate-600 mb-4" />
-                 <p className="text-slate-400 mb-4 text-center text-sm md:text-base">Drag and drop or click to upload audio/video</p>
+                 <p className="text-slate-400 mb-4 text-center text-sm md:text-base">Trascina o clicca per caricare audio/video</p>
                  <input type="file" onChange={handleFileUpload} className="hidden" id="file-upload" />
                  <label htmlFor="file-upload" className="bg-white text-black font-medium px-6 py-3 rounded-full cursor-pointer hover:bg-slate-200">
-                   {loading ? "Uploading..." : "Select File"}
+                   {loading ? "Caricamento..." : "Seleziona File"}
                  </label>
               </div>
 
@@ -361,14 +361,14 @@ export const AdminDashboard = () => {
                            {!m.cover_filename ? (
                                <label className="p-2 bg-black/70 hover:bg-indigo-500 rounded-lg text-white cursor-pointer flex items-center gap-1 text-xs font-medium">
                                    <ImageIcon className="w-4 h-4" />
-                                   <span className="hidden sm:inline">Cover</span>
+                                   <span className="hidden sm:inline">Copertina</span>
                                    <input type="file" className="hidden" accept="image/*" onChange={(e) => e.target.files?.[0] && handleCoverUpload(e.target.files[0], 'media', m.id)} />
                                </label>
                            ) : (
                                <button 
                                  onClick={(e) => { e.stopPropagation(); handleRemoveCover('media', m.id); }}
-                                 className="p-2 bg-black/50 hover:bg-red-500 rounded-lg text-white"
-                                 title="Remove Cover"
+                                  className="p-2 bg-black/50 hover:bg-red-500 rounded-lg text-white"
+                                  title="Rimuovi Copertina"
                                >
                                    <Trash2 className="w-4 h-4" />
                                </button>
@@ -386,11 +386,11 @@ export const AdminDashboard = () => {
                   <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                     <input 
                       className="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 md:py-2 text-base" 
-                      placeholder="Album Title"
+                      placeholder="Titolo Album"
                       value={newAlbum.title}
                       onChange={e => setNewAlbum({...newAlbum, title: e.target.value})}
                     />
-                    <button onClick={createAlbum} className="bg-indigo-600 text-white px-6 py-3 md:py-2 rounded-lg font-medium">Create Album</button>
+                    <button onClick={createAlbum} className="bg-indigo-600 text-white px-6 py-3 md:py-2 rounded-lg font-medium">Crea Album</button>
                   </div>
                </div>
 
@@ -410,15 +410,15 @@ export const AdminDashboard = () => {
                                                 handleRemoveCover('album', album.id);
                                             }}
                                             className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-red-500"
-                                            title="Remove Cover"
+                                             title="Rimuovi Copertina"
                                         >
                                             <Trash2 className="w-4 h-4" />
                                         </button>
                                     </>
                                 ) : (
-                                    <>
+                                     <>
                                         <Disc className="w-5 h-5 text-slate-600" />
-                                        <label className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" title="Upload Cover">
+                                        <label className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" title="Carica Copertina">
                                             <Upload className="w-4 h-4 text-white" />
                                             <input type="file" className="hidden" accept="image/*" onChange={(e) => e.target.files?.[0] && handleCoverUpload(e.target.files[0], 'album', album.id)} />
                                         </label>
@@ -426,8 +426,8 @@ export const AdminDashboard = () => {
                                 )}
                              </div>
                              {!album.cover_filename && (
-                                 <label className="text-xs text-indigo-400 hover:text-indigo-300 cursor-pointer flex items-center gap-1">
-                                     Upload Image
+                                  <label className="text-xs text-indigo-400 hover:text-indigo-300 cursor-pointer flex items-center gap-1">
+                                     Carica Immagine
                                      <input type="file" className="hidden" accept="image/*" onChange={(e) => e.target.files?.[0] && handleCoverUpload(e.target.files[0], 'album', album.id)} />
                                  </label>
                              )}
@@ -439,7 +439,7 @@ export const AdminDashboard = () => {
                        </div>
 
                        <div className="mb-4 md:mb-6">
-                           <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Assigned Content</h4>
+                           <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Contenuto Assegnato</h4>
                            {album.media_items && album.media_items.length > 0 ? (
                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                    {album.media_items.map(item => (
@@ -458,12 +458,12 @@ export const AdminDashboard = () => {
                                    ))}
                                </div>
                            ) : (
-                               <div className="text-sm text-slate-500 italic p-2">No content assigned yet</div>
+                               <div className="text-sm text-slate-500 italic p-2">Nessun contenuto assegnato</div>
                            )}
                        </div>
                        
                        <div className="mb-4">
-                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Add Content</h4>
+                         <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Aggiungi Contenuto</h4>
                          <div className="flex flex-wrap gap-2">
                            {media.map(m => (
                              <button 
@@ -486,27 +486,27 @@ export const AdminDashboard = () => {
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
                 <div className="space-y-4 md:space-y-6">
                    <div className="bg-slate-900 p-4 md:p-6 rounded-2xl border border-slate-800">
-                      <h3 className="text-lg font-bold text-white mb-4">Create New Assignment</h3>
+                      <h3 className="text-lg font-bold text-white mb-4">Crea Nuova Assegnazione</h3>
                       <div className="space-y-4">
                          <FilterableSelect
-                           label="Select Recipient"
+                           label="Seleziona Destinatario"
                            options={recipients.map(r => ({ value: r.id, label: r.name }))}
                            value={newAssignment.recipient_id}
                            onChange={(value) => setNewAssignment({...newAssignment, recipient_id: value})}
-                           placeholder="Search recipients..."
+                           placeholder="Cerca destinatari..."
                          />
                          <FilterableSelect
-                           label="Select Album"
+                           label="Seleziona Album"
                            options={albums.map(a => ({ value: a.id, label: a.title }))}
                            value={newAssignment.album_id}
                            onChange={(value) => setNewAssignment({...newAssignment, album_id: value})}
-                           placeholder="Search albums..."
+                           placeholder="Cerca album..."
                          />
                          <button 
                            onClick={createAssignment} 
                            className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-medium py-4 md:py-3 rounded-xl shadow-lg shadow-indigo-500/20 hover:scale-[1.02] transition-transform text-base"
                          >
-                           Generate Access (QR & Link)
+                           Genera Accesso (QR & Link)
                          </button>
                       </div>
                    </div>
@@ -523,18 +523,18 @@ export const AdminDashboard = () => {
                             )}
                         >
                            <div className="min-w-0 flex-1">
-                              <div className="text-white font-medium truncate">To: {recipients.find(r => r.id === ass.recipient_id)?.name}</div>
+                              <div className="text-white font-medium truncate">A: {recipients.find(r => r.id === ass.recipient_id)?.name}</div>
                               <div className="text-sm text-slate-500 truncate">Album: {albums.find(a => a.id === ass.album_id)?.title}</div>
                            </div>
                            <div className="flex items-center gap-2 shrink-0 ml-2">
-                             <button onClick={(e) => { e.stopPropagation(); deleteAssignment(ass.id); }} className="p-2 text-slate-600 hover:text-red-500 hover:bg-red-500/10 rounded-lg" title="Delete Assignment">
+                             <button onClick={(e) => { e.stopPropagation(); deleteAssignment(ass.id); }} className="p-2 text-slate-600 hover:text-red-500 hover:bg-red-500/10 rounded-lg" title="Elimina Assegnazione">
                                <Trash2 className="w-5 h-5" />
                              </button>
                            </div>
                         </div>
                       ))}
                       {assignments.length === 0 && (
-                        <div className="p-8 text-center text-slate-500">No assignments yet</div>
+                        <div className="p-8 text-center text-slate-500">Nessuna assegnazione ancora</div>
                       )}
                    </div>
                 </div>
@@ -547,16 +547,16 @@ export const AdminDashboard = () => {
                         {selectedAssignmentStats && (
                             <div className="grid grid-cols-2 gap-3 md:gap-4">
                                 <div className="bg-slate-950/50 p-3 md:p-4 rounded-xl border border-slate-800">
-                                    <div className="text-slate-400 text-xs md:text-sm font-medium mb-1 uppercase tracking-wider">Total Views</div>
+                                    <div className="text-slate-400 text-xs md:text-sm font-medium mb-1 uppercase tracking-wider">Visualizzazioni Totali</div>
                                     <div className="text-2xl md:text-3xl font-bold text-white">{selectedAssignmentStats.total_views}</div>
                                 </div>
                                 <div className="bg-slate-950/50 p-3 md:p-4 rounded-xl border border-slate-800">
-                                    <div className="text-slate-400 text-xs md:text-sm font-medium mb-1 uppercase tracking-wider">Media Plays</div>
+                                    <div className="text-slate-400 text-xs md:text-sm font-medium mb-1 uppercase tracking-wider">Riproduzioni Media</div>
                                     <div className="text-2xl md:text-3xl font-bold text-indigo-400">{selectedAssignmentStats.total_plays}</div>
                                 </div>
                                 {selectedAssignmentStats.last_active && (
                                     <div className="col-span-2 bg-slate-950/50 p-3 md:p-4 rounded-xl border border-slate-800 text-left flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                                        <div className="text-slate-400 text-sm">Last Active</div>
+                                        <div className="text-slate-400 text-sm">Ultima Attività</div>
                                         <div className="text-green-400 font-mono text-xs md:text-sm">
                                             {new Date(selectedAssignmentStats.last_active).toLocaleString()}
                                         </div>
@@ -569,8 +569,8 @@ export const AdminDashboard = () => {
 
                         {/* QR Section */}
                         <div className="flex flex-col items-center">
-                            <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Access Link</h3>
-                            <p className="text-slate-400 mb-4 md:mb-6 text-sm">Share this QR code with the recipient.</p>
+                            <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Link di Accesso</h3>
+                            <p className="text-slate-400 mb-4 md:mb-6 text-sm">Condividi questo codice QR con il destinatario.</p>
                             
                             <div className="relative group">
                                 <div className="absolute inset-0 bg-indigo-500 blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
@@ -585,7 +585,7 @@ export const AdminDashboard = () => {
                    ) : (
                      <div className="flex flex-col items-center justify-center h-full text-slate-500 min-h-[300px] md:min-h-[400px]">
                         <QrCode className="w-20 h-20 md:w-24 md:h-24 opacity-10 mb-4" />
-                        <p className="text-sm md:text-base">Select an assignment to view Details & Statistics</p>
+                        <p className="text-sm md:text-base">Seleziona un'assegnazione per vedere dettagli e statistiche</p>
                      </div>
                    )}
                 </div>
